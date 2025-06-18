@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Buscar Usuarios</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+    }
+    form {
+      margin-bottom: 1rem;
+    }
+    #resultado-usuarios > div {
+      border: 1px solid #ccc;
+      padding: 0.75rem;
+      margin-bottom: 0.5rem;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+    }
+    button {
+      margin-top: 0.5rem;
+    }
+    #facturas-usuario {
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <h2>🔍 Buscar usuario</h2>
+
+  <form id="form-busqueda">
+    <input type="text" id="busqueda" placeholder="ID o nombre" required />
+    <button type="submit">Buscar</button>
+  </form>
+
+  <div id="resultado-usuarios"></div>
+  <div id="facturas-usuario"></div>
+
+  <script>
+    const form = document.getElementById("form-busqueda");
+    const resUsuarios = document.getElementById("resultado-usuarios");
+    const resFacturas = document.getElementById("facturas-usuario");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const input = document.getElementById("busqueda").value.trim();
+
+      if (!input) return;
+
+      const query = isNaN(input)
+        ? `?nombre=${encodeURIComponent(input)}`
+        : `?id=${input}`;
+
+      try {
+        const res = await fetch(`/admin/usuarios${query}`);
+        const data = await res.json();
+
+        resUsuarios.innerHTML = "";
+        resFacturas.innerHTML = "";
+
+        if (!res.ok || !Array.isArray(data.usuarios) || data.usuarios.length === 0) {
+          resUsuarios.innerHTML = "<p>No se encontró ningún usuario.</p>";
+          return;
+        }
+
+        data.usuarios.forEach((u) => {
+          const div = document.createElement("div");
+          div.innerHTML = `<h3>${u.nombre}</h3>`;
+
+          const btn = document.createElement("button");
+          btn.textContent = "Ver facturas";
+
+          btn.addEventListener("click", async () => {
+            resFacturas.innerHTML = "<p>Cargando facturas...</p>";
+            try {
+              const factRes = await fetch(`/admin/usuarios/${u.id_usuario}/facturas`);
+              const factData = await factRes.json();
+
+              if (!factRes.ok || !Array.isArray(factData.facturas)) {
+                throw new Error("La respuesta no contiene facturas válidas.");
+              }
+
+              resFacturas.innerHTML = `<h4> Facturas de ${u.nombre}</h4>` +
+                 (factData.facturas.length > 0
+                   ? `<ul>${factData.facturas.map(f =>
+                       `<li>
+                         <strong>Fecha:</strong> ${new Date(f.fecha).toLocaleString()}<br>
+                         <strong>Total:</strong> $${f.total}<br>
+                         ${f.tieneFactura
+                           ? `<a href="/admin/factura/${f.id}" target="_blank"> Descargar factura</a>`
+                           : `<em>Factura no generada</em>`}
+                       </li>`).join("")}</ul>`
+                   : "<p>No tiene facturas registradas.</p>");
+
+
+            } catch (error) {
+              console.error("Error al obtener facturas:", error);
+              resFacturas.innerHTML = "<p> Error al obtener las facturas del usuario.</p>";
+            }
+          });
+
+          div.appendChild(btn);
+          resUsuarios.appendChild(div);
+        });
+
+      } catch (error) {
+        console.error("Error en la búsqueda:", error);
+        resUsuarios.innerHTML = "<p> Hubo un error al buscar el usuario.</p>";
+      }
+    });
+  </script>
+</body>
+</html>

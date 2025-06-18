@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <link rel="stylesheet" href="estilosForm.css">
+    <script src="registro.js" defer></script>
+</head>
+<body>
+    <div class="main-content">
+        <div class="title-container">
+            <h2 class="title">Carrito de Compras</h2>
+        </div>
+        <div class="login-container">
+            <h2>Registro</h2>
+            <form id="register-form">
+                <div class="form-group" id="form-group">
+                    <label for="nombre">Nombre:</label>
+                    <input class="options" type="text" id="nombre" name="nombre">
+                </div>
+                <div class="form-group" id="form-group">
+                        <label for="email">Email:</label>
+                        <input class="options" type="email" id="email" name="email">
+                </div>
+                <div class="form-group" id="form-group">
+                        <label for="cuil">Cuil:</label>
+                        <input class="options" type="text" id="cuil" name="cuil">
+                </div>
+                    <div class="form-group" id="form-group">
+                        <label for="password">Password:</label>
+                        <input class="options" type="password" id="password" name="password">
+                    </div>
+                    
+                <button class="options" type="submit">Registrarse</button>
+                <p class="error-message hidden">Error al Registrarse</p>
+            </form>
+            <p id="">¿Ya tenes cuenta? - <a href="/login">Inicia sesion</a></p>
+        </div>
+    </div>
+    <footer class="footer">
+        © 2025  Carrito de compras. Todos los derechos reservados.
+    </footer>
+</body>
+</html>

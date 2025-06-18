@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Nuevo Paquete</title>
+</head>
+<body>
+  <h2>Subir nuevo paquete de viaje</h2>
+  <form id="form-paquete">
+    <input type="text" name="nombre" placeholder="Nombre del paquete" required><br>
+    <input type="number" name="precio_unidad" placeholder="Precio por unidad" required><br>
+    <input type="text" name="continente" placeholder="Continente" required><br>
+    <textarea name="informacion" placeholder="Información detallada" required></textarea><br>
+    <button type="submit">Guardar paquete</button>
+  </form>
+
+  <script>
+    const form = document.getElementById("form-paquete");
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const datos = Object.fromEntries(new FormData(form));
+
+      const res = await fetch("/admin/paquetes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(datos)
+      });
+
+      const data = await res.json();
+      alert(data.message);
+    });
+  </script>
+</body>
+</html>

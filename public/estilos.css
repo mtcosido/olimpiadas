@@ -1,0 +1,12 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+.main-content{
+    background-color: red;
+    min-height: 100vh;
+    color: white;
+    font-size: 32px;
+}
