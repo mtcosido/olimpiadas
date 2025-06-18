@@ -1,0 +1,48 @@
+[
+    {
+        "id": "consola-01",
+        "titulo": "producto ",
+        "categoria": {
+            "nombre": "Consolas",
+            "id": "consolas"
+        },
+        "precio": 1000
+    },
+    {
+        "id": "consola-02",
+        "titulo": "producto",
+        
+        "categoria": {
+            "nombre": "Consolas",
+            "id": "consolas"
+        },
+        "precio": 1000
+    },
+    {
+        "id": "consola-03",
+        "titulo": "producto",
+        "categoria": {
+            "nombre": "Consolas",
+            "id": "consolas"
+        },
+        "precio": 1000
+    },
+    {
+        "id": "juego",
+        "titulo": "producto",
+        "categoria": {
+            "nombre": "Juegos",
+            "id": "juegos"
+        },
+        "precio": 1000
+    },
+    {
+        "id": "accesorio-01",
+        "titulo": "producto",
+        "categoria": {
+            "nombre": "accesorios",
+            "id": "accesorios"
+        },
+        "precio": 1000
+    }
+]
