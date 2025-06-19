@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>Nuevo Paquete</title>
+  <link rel="stylesheet" href="nuevo-paquete.css">
 </head>
 <body>
   <h2>Subir nuevo paquete de viaje</h2>
@@ -13,6 +14,10 @@
     <textarea name="informacion" placeholder="Información detallada" required></textarea><br>
     <button type="submit">Guardar paquete</button>
   </form>
+
+  <a href="/admin/views/panel.html">
+    <button id="volver-panel">↩️ Volver al panel</button>
+  </a>
 
   <script>
     const form = document.getElementById("form-paquete");
